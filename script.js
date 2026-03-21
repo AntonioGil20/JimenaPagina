@@ -20,9 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const images = document.querySelectorAll('.gallery-img');
     const closeBtn = document.querySelector('.close-btn');
     
-    // Animaciones de scroll
-    const fadeElements = document.querySelectorAll('.fade-in-up');
-    
     // Pantalla de carga
     const splash = document.getElementById('splash-screen');
 
