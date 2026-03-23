@@ -92,12 +92,34 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-// ==========================================
-    // 6. FILTROS DINÁMICOS DE GALERÍA (Ultra Rendimiento)
+    // ==========================================
+    // 6. ANIMACIONES AL HACER SCROLL
+    // ==========================================
+    const fadeElements = document.querySelectorAll('.fade-in-up');
+    
+    const appearOptions = {
+        threshold: 0.15,
+        rootMargin: "0px 0px -50px 0px"
+    };
+
+    const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, appearOptions);
+
+    fadeElements.forEach(el => appearOnScroll.observe(el));
+
+
+    // ==========================================
+    // 7. FILTROS DINÁMICOS DE GALERÍA
     // ==========================================
     const filterBtns = document.querySelectorAll('.filter-btn');
     
-    // Al cargar la página, ocultamos de inicio las que NO queremos en "Todas"
+    // Al cargar la página, ocultamos de inicio las que NO queremos en "Destacado"
     images.forEach(img => {
         if (img.getAttribute('data-featured') !== 'true') {
             img.classList.add('hide');
@@ -106,25 +128,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Quitamos la clase active de los botones
             filterBtns.forEach(button => button.classList.remove('active'));
             btn.classList.add('active');
 
             const filterValue = btn.getAttribute('data-filter');
 
-            // Evaluamos y mostramos instantáneamente, sin delay ni animaciones extra
             images.forEach(img => {
                 const isFeatured = img.getAttribute('data-featured') === 'true';
                 
                 if (filterValue === 'all') {
                     if (isFeatured) {
                         img.classList.remove('hide');
+                        img.classList.add('visible'); // Asegura que no se quede invisible
                     } else {
                         img.classList.add('hide');
                     }
                 } else {
                     if (img.getAttribute('data-category') === filterValue) {
                         img.classList.remove('hide');
+                        img.classList.add('visible'); // Asegura que no se quede invisible
                     } else {
                         img.classList.add('hide');
                     }
