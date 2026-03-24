@@ -661,3 +661,65 @@ section h2 {
         height: 300px;
     }
 }
+/* =========================================
+   12. INFORMACIÓN DE PROYECTO (SESIONES)
+   ========================================= */
+.session-hero {
+    height: 20vh; /* Reducido de 35vh a 20vh */
+    min-height: 150px;
+    background-color: var(--bg-color);
+    border-bottom: none;
+}
+
+.project-info {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 5% 4rem 5%;
+    text-align: center;
+}
+
+.project-description p {
+    font-size: 1.15rem;
+    color: #e0e0e0;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+    font-weight: 300;
+}
+
+.project-credits {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4rem;
+    border-top: 1px solid #222;
+    padding-top: 2.5rem;
+}
+
+.credit-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.credit-role {
+    font-family: var(--font-title);
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.credit-name {
+    color: #fff;
+    font-weight: 400;
+    font-size: 1rem;
+    letter-spacing: 1px;
+}
+
+/* Ajuste para celulares */
+@media (max-width: 600px) {
+    .project-credits {
+        flex-direction: column;
+        gap: 2rem;
+    }
+}
