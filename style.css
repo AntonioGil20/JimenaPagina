@@ -324,12 +324,23 @@ section h2 {
    7. GALERÍA Y LIGHTBOX
    ========================================= */
 .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 1rem;
+    column-count: 3; /* Crea 3 columnas exactas en PC */
+    column-gap: 1rem; /* Separación horizontal entre fotos */
 }
 
-/* Animaciones al hacer scroll */
+/* Ajuste responsivo para tablets y celulares */
+@media (max-width: 900px) {
+    .gallery-grid {
+        column-count: 2;
+    }
+}
+@media (max-width: 600px) {
+    .gallery-grid {
+        column-count: 1;
+    }
+}
+
+/* Animaciones al hacer scroll (para destacadas) */
 .fade-in-up {
     opacity: 0;
     transform: translateY(40px);
@@ -341,21 +352,107 @@ section h2 {
     transform: translateY(0);
 }
 
-.gallery-img {
+/* Contenedor para imagen + overlay (usado en Eventos) */
+.gallery-item {
+    position: relative;
     width: 100%;
-    height: 400px;
-    object-fit: cover;
-    transition: transform 0.4s ease; /* Solo dejamos el zoom al pasar el ratón */
+    height: auto; /* Permite que el contenedor se adapte a la foto real */
+    margin-bottom: 1rem; /* Separación vertical entre fotos */
+    break-inside: avoid; /* Magia: Evita que una foto se parta entre dos columnas */
+    overflow: hidden; 
+    cursor: pointer;
 }
 
+/* Imagen base */
+.gallery-img {
+    width: 100%;
+    height: auto; /* Respeta las proporciones reales verticales y horizontales */
+    display: block; /* Quita espacios fantasma debajo de la foto */
+    margin-bottom: 1rem; /* Separación vertical para fotos sueltas */
+    break-inside: avoid; /* Magia: Evita cortes */
+    transition: transform 0.4s ease;
+}
+
+/* Evitar margen doble si la foto está dentro de un contenedor de Eventos */
+.gallery-item .gallery-img {
+    margin-bottom: 0;
+}
+
+/* Pequeño zoom al pasar el ratón */
+.gallery-item:hover .gallery-img,
 .gallery-img:hover {
-    transform: scale(1.02); 
-    z-index: 20;
+    transform: scale(1.02);
 }
 
 /* Oculta las fotos cuando usamos los filtros */
-.gallery-img.hide {
+.gallery-img.hide,
+.gallery-item.hide {
     display: none;
+}
+
+/* Imagen base y portadas de sesión */
+.gallery-img,
+.cover-img {
+    width: 100%;
+    height: auto; 
+    display: block; 
+    margin-bottom: 1rem; 
+    break-inside: avoid; 
+    transition: transform 0.4s ease;
+}
+
+/* Evitar margen doble si la foto está dentro de un contenedor */
+.gallery-item .gallery-img,
+.gallery-item .cover-img {
+    margin-bottom: 0;
+}
+
+/* Pequeño zoom al pasar el ratón */
+.gallery-item:hover .gallery-img,
+.gallery-img:hover,
+.gallery-item:hover .cover-img,
+.cover-img:hover {
+    transform: scale(1.02);
+}
+
+/* Oculta las fotos cuando usamos los filtros */
+.gallery-img.hide,
+.gallery-item.hide,
+.cover-img.hide {
+    display: none;
+}
+
+/* Capa oscura y semi-transparente del efecto de título */
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0; 
+    transition: opacity 0.4s ease;
+    pointer-events: none; 
+}
+
+/* Muestra el overlay al pasar el ratón sobre el contenedor */
+.gallery-item:hover .image-overlay {
+    opacity: 1;
+}
+
+/* Texto dentro del overlay */
+.overlay-text {
+    color: #ffffff;
+    font-family: var(--font-title); 
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 15px;
+    text-shadow: 0 0 10px rgba(0,0,0,0.5); 
 }
 
 /* Visor de fotos (Lightbox) */
@@ -383,6 +480,7 @@ section h2 {
     font-size: 40px;
     font-weight: 300;
     transition: color 0.3s;
+    cursor: pointer;
 }
 
 .close-btn:hover {

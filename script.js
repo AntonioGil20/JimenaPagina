@@ -118,41 +118,46 @@ document.addEventListener('DOMContentLoaded', () => {
     // 7. FILTROS DINÁMICOS DE GALERÍA
     // ==========================================
     const filterBtns = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-grid > *'); 
     
-    // Al cargar la página, ocultamos de inicio las que NO queremos en "Destacado"
-    images.forEach(img => {
-        if (img.getAttribute('data-featured') !== 'true') {
-            img.classList.add('hide');
-        }
-    });
+    // NUEVO: Solo ejecutamos el filtro si existen los botones en la página actual
+    if (filterBtns.length > 0) {
+        
+        // Al cargar la página, ocultamos de inicio las que NO queremos en "Destacado"
+        galleryItems.forEach(item => {
+            if (item.getAttribute('data-featured') !== 'true') {
+                item.classList.add('hide');
+            }
+        });
 
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            filterBtns.forEach(button => button.classList.remove('active'));
-            btn.classList.add('active');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(button => button.classList.remove('active'));
+                btn.classList.add('active');
 
-            const filterValue = btn.getAttribute('data-filter');
+                const filterValue = btn.getAttribute('data-filter');
 
-            images.forEach(img => {
-                const isFeatured = img.getAttribute('data-featured') === 'true';
-                
-                if (filterValue === 'all') {
-                    if (isFeatured) {
-                        img.classList.remove('hide');
-                        img.classList.add('visible'); // Asegura que no se quede invisible
+                galleryItems.forEach(item => {
+                    const isFeatured = item.getAttribute('data-featured') === 'true';
+                    
+                    if (filterValue === 'all') {
+                        if (isFeatured) {
+                            item.classList.remove('hide');
+                            item.classList.add('visible');
+                        } else {
+                            item.classList.add('hide');
+                        }
                     } else {
-                        img.classList.add('hide');
+                        if (item.getAttribute('data-category') === filterValue) {
+                            item.classList.remove('hide');
+                            item.classList.add('visible'); 
+                        } else {
+                            item.classList.add('hide');
+                        }
                     }
-                } else {
-                    if (img.getAttribute('data-category') === filterValue) {
-                        img.classList.remove('hide');
-                        img.classList.add('visible'); // Asegura que no se quede invisible
-                    } else {
-                        img.classList.add('hide');
-                    }
-                }
+                });
             });
         });
-    });
+    }
 
 }); // <-- ESTA ES LA LLAVE DE CIERRE FINAL
