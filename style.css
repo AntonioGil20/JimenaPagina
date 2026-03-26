@@ -672,7 +672,7 @@ section h2 {
 }
 
 .project-info {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 0 5% 4rem 5%;
     text-align: center;
@@ -721,5 +721,23 @@ section h2 {
     .project-credits {
         flex-direction: column;
         gap: 2rem;
+    }
+}
+
+/* Títulos de las sesiones más elegantes y delgados */
+.session-hero h1 {
+    font-family: var(--font-body); /* Cambiamos a la tipografía delgada (Montserrat) */
+    font-weight: 300; /* Le damos el grosor más fino posible */
+    font-size: 2.5rem; /* Tamaño mucho más sutil (antes era 5.5rem) */
+    letter-spacing: 4px; /* Un poco de espacio entre letras para el toque de revista */
+    line-height: 1.3;
+    text-transform: uppercase;
+    padding: 0 20px;
+}
+
+/* Ajuste automático para que en celulares no se salga de la pantalla */
+@media (max-width: 600px) {
+    .session-hero h1 {
+        font-size: 1.8rem;
     }
 }
