@@ -325,7 +325,7 @@ section h2 {
    ========================================= */
 .gallery-grid {
     column-count: 3; /* Crea 3 columnas exactas en PC */
-    column-gap: 1rem; /* Separación horizontal entre fotos */
+    column-gap: 1.5rem; /* Separación horizontal entre fotos */
 }
 
 /* Ajuste responsivo para tablets y celulares */
@@ -356,8 +356,9 @@ section h2 {
 .gallery-item {
     position: relative;
     width: 100%;
+    display: block;
     height: auto; /* Permite que el contenedor se adapte a la foto real */
-    margin-bottom: 1rem; /* Separación vertical entre fotos */
+    margin-bottom: 1.5rem; /* Separación vertical entre fotos */
     break-inside: avoid; /* Magia: Evita que una foto se parta entre dos columnas */
     overflow: hidden; 
     cursor: pointer;
@@ -396,7 +397,7 @@ section h2 {
     width: 100%;
     height: auto; 
     display: block; 
-    margin-bottom: 1rem; 
+    margin-bottom: 1.5rem; 
     break-inside: avoid; 
     transition: transform 0.4s ease;
     /* Agrega estas dos líneas para quitar el lag en celulares: */
