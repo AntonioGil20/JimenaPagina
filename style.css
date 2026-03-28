@@ -399,6 +399,9 @@ section h2 {
     margin-bottom: 1rem; 
     break-inside: avoid; 
     transition: transform 0.4s ease;
+    /* Agrega estas dos líneas para quitar el lag en celulares: */
+    transform: translateZ(0); 
+    backface-visibility: hidden;
 }
 
 /* Evitar margen doble si la foto está dentro de un contenedor */
