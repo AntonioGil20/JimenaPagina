@@ -622,6 +622,13 @@ section h2 {
    11. DISEÑO RESPONSIVO (MÓVILES)
    ========================================= */
 @media (max-width: 768px) {
+    
+    /* ¡MAGIA ANTI-LAG! Apagamos el grano en celulares para liberar la RAM */
+    .grain-overlay {
+        display: none !important;
+        animation: none !important;
+    }
+
     .hamburger {
         display: block;
     }
