@@ -407,11 +407,13 @@
 
     <section id="contacto" class="contact-section">
         <h2>Contacto</h2>
-        <form class="contact-form" action="https://formspree.io/f/xbdpopze" method="POST">
+        <form id="my-form" class="contact-form" action="https://formspree.io/f/xbdpopze" method="POST">
             <input type="text" name="nombre" placeholder="¿Cómo te llamas?" required>
             <input type="email" name="email" placeholder="Tu Correo" required>
             <textarea name="mensaje" rows="5" placeholder="Cuéntame sobre tu idea..." required></textarea>
             <button type="submit" class="btn">Enviar Correo</button>
+            
+            <p id="my-form-status"></p>
         </form>
     </section>
 

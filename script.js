@@ -212,4 +212,59 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ==========================================
+    // 8. ENVÍO DE FORMULARIO SIN RECARGAR LA PÁGINA
+    // ==========================================
+    const form = document.getElementById("my-form");
+    const status = document.getElementById("my-form-status");
+
+    if (form) {
+        form.addEventListener("submit", async function(event) {
+            event.preventDefault(); // Evita que la página te mande a Formspree
+
+            // Cambia el texto del botón mientras envía
+            const btn = form.querySelector('button');
+            const btnOriginalText = btn.innerText;
+            btn.innerText = "Enviando...";
+
+            const data = new FormData(event.target);
+
+            fetch(event.target.action, {
+                method: form.method,
+                body: data,
+                headers: {
+                    'Accept': 'application/json' // Le dice a Formspree que responda en silencio
+                }
+            }).then(response => {
+                if (response.ok) {
+                    status.innerHTML = "¡Gracias! Tu mensaje ha sido enviado con éxito.";
+                    status.className = "status-success";
+                    status.style.display = "block";
+                    form.reset(); // Limpia los campos del formulario
+                } else {
+                    response.json().then(data => {
+                        if (Object.hasOwn(data, 'errors')) {
+                            status.innerHTML = data["errors"].map(error => error["message"]).join(", ");
+                        } else {
+                            status.innerHTML = "Oops! Hubo un problema al enviar tu formulario.";
+                        }
+                        status.className = "status-error";
+                        status.style.display = "block";
+                    })
+                }
+            }).catch(error => {
+                status.innerHTML = "Oops! Hubo un problema al enviar tu formulario.";
+                status.className = "status-error";
+                status.style.display = "block";
+            }).finally(() => {
+                btn.innerText = btnOriginalText; // Regresa el botón a la normalidad
+                
+                // Oculta el mensaje de gracias después de 5 segundos
+                setTimeout(() => {
+                    status.style.display = "none";
+                }, 5000);
+            });
+        });
+    }
+
 }); // <-- ESTA ES LA LLAVE DE CIERRE FINAL

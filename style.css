@@ -604,6 +604,24 @@ section h2 {
     width: 100%;
 }
 
+/* Mensaje de estado del formulario */
+#my-form-status {
+    text-align: center;
+    font-size: 1.1rem;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-family: var(--font-body);
+    display: none; /* Oculto por defecto */
+}
+
+/* Colores para cuando sale bien o mal */
+.status-success {
+    color: #4CAF50; /* Un verde elegante */
+}
+
+.status-error {
+    color: var(--accent-color); /* El rojo/rosa de tu paleta */
+}
 
 /* =========================================
    10. PIE DE PÁGINA (FOOTER)
