@@ -494,6 +494,43 @@ section h2 {
     color: var(--accent-color);
 }
 
+/* Controles del Lightbox (Flechas) */
+.prev-btn, .next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 50px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: color 0.3s;
+    user-select: none;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.prev-btn:hover, .next-btn:hover {
+    color: var(--accent-color);
+}
+
+.prev-btn {
+    left: 20px;
+}
+
+.next-btn {
+    right: 20px;
+}
+
+/* Ajuste de flechas para celulares */
+@media (max-width: 600px) {
+    .prev-btn, .next-btn {
+        font-size: 35px;
+        padding: 10px;
+    }
+    .prev-btn { left: 5px; }
+    .next-btn { right: 5px; }
+}
+
 
 /* =========================================
    8. SERVICIOS Y TARJETAS

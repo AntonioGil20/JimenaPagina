@@ -74,44 +74,96 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     // 5. VISOR DE IMÁGENES (LIGHTBOX)
     // ==========================================
-    images.forEach(img => {
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    let currentIndex = 0;
+    let visibleImages = []; // Guardará solo las fotos no ocultadas por los filtros
+
+    // Función para abrir el visor
+    images.forEach((img) => {
         img.addEventListener('click', () => {
+            // Filtramos las imágenes que están visibles en ese momento en la pantalla
+            visibleImages = Array.from(images).filter(image => !image.classList.contains('hide'));
+            
+            // Buscamos qué número de foto (índice) acabamos de clickear
+            currentIndex = visibleImages.indexOf(img);
+            
             lightbox.style.display = 'flex';
             lightboxImg.src = img.src;
         });
     });
 
+    // Función para cambiar de foto (Adelante o Atrás)
+    function changeImage(direction) {
+        if (visibleImages.length === 0) return;
+        
+        currentIndex += direction;
+        
+        // Si llegamos a la última, regresamos a la primera y viceversa
+        if (currentIndex >= visibleImages.length) {
+            currentIndex = 0;
+        } else if (currentIndex < 0) {
+            currentIndex = visibleImages.length - 1;
+        }
+        
+        lightboxImg.src = visibleImages[currentIndex].src;
+    }
+
+    // Eventos para dar clic en las flechas
+    if(nextBtn && prevBtn) {
+        nextBtn.addEventListener('click', () => changeImage(1));
+        prevBtn.addEventListener('click', () => changeImage(-1));
+    }
+
+    // Cerrar el visor
     closeBtn.addEventListener('click', () => {
         lightbox.style.display = 'none';
     });
 
+    // Cerrar si hacemos clic en el fondo negro (pero no en la foto ni en las flechas)
     lightbox.addEventListener('click', (e) => {
-        if (e.target !== lightboxImg) {
+        if (e.target !== lightboxImg && e.target !== prevBtn && e.target !== nextBtn) {
             lightbox.style.display = 'none';
         }
     });
 
+    // Soporte para teclado (Flechas Izquierda/Derecha y Escape para salir)
+    document.addEventListener('keydown', (e) => {
+        if (lightbox.style.display === 'flex') {
+            if (e.key === 'ArrowRight') {
+                changeImage(1);
+            } else if (e.key === 'ArrowLeft') {
+                changeImage(-1);
+            } else if (e.key === 'Escape') {
+                lightbox.style.display = 'none';
+            }
+        }
+    });
 
     // ==========================================
     // 6. ANIMACIONES AL HACER SCROLL
     // ==========================================
-    const fadeElements = document.querySelectorAll('.fade-in-up');
+    // Seleccionamos todos los elementos directos de la cuadrícula
+    const fadeElements = document.querySelectorAll('.gallery-grid > *');
     
     const appearOptions = {
-        threshold: 0.15,
-        rootMargin: "0px 0px -50px 0px"
+        threshold: 0.1, // Qué tanto de la foto debe asomarse para empezar a animar
+        rootMargin: "0px 0px -0px 0px"
     };
 
     const appearOnScroll = new IntersectionObserver(function(entries, observer) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
+                observer.unobserve(entry.target); // Deja de observarla una vez que ya apareció
             }
         });
     }, appearOptions);
 
-    fadeElements.forEach(el => appearOnScroll.observe(el));
+    fadeElements.forEach(el => {
+        el.classList.add('fade-in-up'); // Agrega la clase a todas las fotos automáticamente
+        appearOnScroll.observe(el);
+    });
 
 
     // ==========================================
