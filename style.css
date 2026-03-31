@@ -400,12 +400,6 @@ section h2 {
     margin-bottom: 1.5rem; 
     break-inside: avoid; 
     transition: transform 0.4s ease;
-    /* Agrega estas dos líneas para quitar el lag en celulares: */
-    transform: translateZ(0); 
-    backface-visibility: hidden;
-
-    /* Agrega esta línea: Le avisa al celular que optimice la memoria de estas fotos */
-    will-change: transform, opacity;
 }
 
 /* Evitar margen doble si la foto está dentro de un contenedor */
@@ -530,7 +524,6 @@ section h2 {
     .prev-btn { left: 5px; }
     .next-btn { right: 5px; }
 }
-
 
 /* =========================================
    8. SERVICIOS Y TARJETAS
