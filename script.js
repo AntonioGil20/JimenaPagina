@@ -141,32 +141,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================
-    // 6. ANIMACIONES AL HACER SCROLL
-    // ==========================================
-    // Seleccionamos todos los elementos directos de la cuadrícula
-    const fadeElements = document.querySelectorAll('.gallery-grid > *');
-    
-    const appearOptions = {
-        threshold: 0.1, // Qué tanto de la foto debe asomarse para empezar a animar
-        rootMargin: "0px 0px -0px 0px"
-    };
-
-    const appearOnScroll = new IntersectionObserver(function(entries, observer) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target); // Deja de observarla una vez que ya apareció
-            }
-        });
-    }, appearOptions);
-
-    fadeElements.forEach(el => {
-        el.classList.add('fade-in-up'); // Agrega la clase a todas las fotos automáticamente
-        appearOnScroll.observe(el);
-    });
-
-
-    // ==========================================
     // 7. FILTROS DINÁMICOS DE GALERÍA
     // ==========================================
     const filterBtns = document.querySelectorAll('.filter-btn');
