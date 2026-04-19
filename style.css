@@ -100,18 +100,6 @@ body::after {
     pointer-events: none;
 }
 
-/* --- Grano y Polvo Analógico --- */
-.grain-overlay {
-    position: fixed;
-    top: -100%; left: -100%;
-    width: 300%; height: 300%;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.03; 
-    z-index: 9999; 
-    pointer-events: none; 
-    animation: noise 0.3s steps(10) infinite;
-}
-
 @keyframes noise {
     0%, 100% { transform: translate(0, 0); }
     10% { transform: translate(-5%, -10%); }
@@ -659,11 +647,7 @@ section h2 {
    ========================================= */
 @media (max-width: 768px) {
     
-    /* ¡MAGIA ANTI-LAG! Apagamos el grano en celulares para liberar la RAM */
-    .grain-overlay {
-        display: none !important;
-        animation: none !important;
-    }
+
 
     .hamburger {
         display: block;
